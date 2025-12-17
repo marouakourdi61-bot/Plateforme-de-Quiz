@@ -1,15 +1,17 @@
-
-<?php 
+<?php
 $servername = "localhost";
 $username = "root";
-$pass = "123456";
+$password = "123456";
 $dbname = "data_project";
 
-$connect = new mysqli($servername,$username, $pass,$dbname);
+try {
+    $pdo = new PDO(
+        "mysql:host=$servername;dbname=$dbname;charset=utf8",
+        $username,
+        $password
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erreur DB : " . $e->getMessage());
+}
 
-
-
-
-
-
-?>

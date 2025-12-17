@@ -3,6 +3,20 @@ include '../config/database.php';
 
 ?>
 
+
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../auth/login.php");
+    exit;
+}
+if ($_SESSION['role'] !== 'enseignant') {
+    header("Location: ../auth/login.php");
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,53 +1,55 @@
 <?php
+
 session_start();
 
-require_once '../config/database.php';
 
-if (isset($_SESSION['user_id'])) {
-    if ($_SESSION['role'] === 'enseignant') {
-        header("Location: ../enseignant/dashboard.php");
-    } else {
-        header("Location: ../etudiant/dashboard.php");
-    }
+$success_message = '';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../auth/login.php");
+    exit;
+}
+if ($_SESSION['role'] !== 'enseignant') {
+    header("Location: ../auth/login.php");
     exit;
 }
 
+
+require_once '../config/database.php';
+
+
 $error_message = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $pass = $_POST['password'] ?? '';
 
-    $query = "SELECT id, password, role FROM users WHERE email = :email LIMIT 1";
-    $stmt = $pdo->prepare($query);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $email = trim($_POST['email']);
+    $pass  = $_POST['password'];
+
+    $sql = "SELECT id, password, role FROM users WHERE email = :email";
+    $stmt = $pdo->prepare($sql);
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user) {
+    if ($user && password_verify($pass, $user['password'])) {
 
-        if (password_verify($pass, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['role'] = $user['role'];
 
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $user['role'];
-
-            if ($user['role'] === 'enseignant') {
-                header("Location: ../enseignant/dashboard.php");
-            } else {
-                header("Location: ../etudiant/dashboard.php");
-            }
-            exit;
+        if ($user['role'] === 'enseignant') {
+            header("Location: ../enseignant/dashboard.php");
         } else {
-            $error_message = "Mot de passe incorrect.";
+            header("Location: ../etudiant/dashboard.php");
         }
-    } else {
-        $error_message = "Email non trouvé.";
-    }
-    
-    if ($error_message) {
-        $error_message = "Email ou mot de passe incorrect."; 
-    }
+        exit;
 
+    } else {
+        $error_message = "Email ou mot de passe incorrect.";
+    }
 }
+
+
 
 
 
@@ -68,6 +70,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" action="" class="relative text-white text-center flex items-center flex-col gap-4 border-2 rounded-xl px-8 w-full max-w-md py-10 bg-black bg-opacity-30 backdrop-blur-sm">
       
       <h1 class="text-3xl uppercase font-extrabold mb-4">Se Connecter</h1>
+
+
+      <?php if ($success_message): ?>
+    <p class="text-green-400 font-semibold border border-green-400 p-2 rounded-md w-full">
+        <?php echo $success_message; ?>
+    </p>
+<?php endif; ?>
+
+
+
       
       <?php if ($error_message): ?>
           <p class="text-red-400 font-semibold border border-red-400 p-2 rounded-md w-full"><?php echo $error_message; ?></p>
@@ -98,18 +110,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </body>
 </html>
 
-<?php 
-$users_data = [
-    ['Mohammed Alami', 'alami@gmail.com', 'enseignant'],
-    ['Fatima Zahra', 'fatima@gmail.com', 'enseignant'],
-    ['Ahmed Bennani', 'ahmed@gmail.com', 'etudiant'],
-    ['Salma Idrissi', 'salma@gmail.com', 'etudiant'],
-    ['Youssef Tazi', 'youssef@gmail.com', 'etudiant'],
-];
-
-$sql = "INSERT INTO users (name, email, password, role) 
-        VALUES (:name, :email, :password, :role) 
-        ON DUPLICATE KEY UPDATE name=VALUES(name)"; 
-        
- $user       
-?>

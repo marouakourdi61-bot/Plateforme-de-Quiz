@@ -1,10 +1,31 @@
-<?php 
-include '../config/database.php';
+<?php
+session_start();
+require_once '../config/database.php';
+
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../auth/login.php");
+    exit;
+}
+if ($_SESSION['role'] !== 'enseignant') {
+    header("Location: ../auth/login.php");
+    exit;
+}
+
 
 
 include '../includes/header.php';
 
+
+
+
+
+
 ?>
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -16,8 +37,9 @@ include '../includes/header.php';
     <title>Document</title>
 </head>
 <body >
-        <div id="dashboard" class="section-content"  >
-            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white  ">
+    <div id="teacherSpace" class="pt-5">
+        <div id="dashboard" class="section-content h-[80vh]">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white  " >
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <h1 class="text-4xl font-bold mb-4">Tableau de bord Enseignant</h1>
                     <p class="text-xl text-indigo-100 mb-6">Gérez vos quiz et suivez les performances de vos étudiants</p>
@@ -34,7 +56,7 @@ include '../includes/header.php';
 
 
             
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-10 ">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div class="bg-white rounded-xl shadow-md p-6">
                         <div class="flex items-center justify-between">

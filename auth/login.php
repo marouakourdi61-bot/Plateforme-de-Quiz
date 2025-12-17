@@ -5,14 +5,7 @@ session_start();
 
 $success_message = '';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../auth/login.php");
-    exit;
-}
-if ($_SESSION['role'] !== 'enseignant') {
-    header("Location: ../auth/login.php");
-    exit;
-}
+
 
 
 require_once '../config/database.php';

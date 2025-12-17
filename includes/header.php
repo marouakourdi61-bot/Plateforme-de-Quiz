@@ -109,7 +109,7 @@ $initials = strtoupper(substr($parts[0], 0, 1) . substr(end($parts), 0, 1));
                                 <a href="#student" onclick="switchToStudent()" class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">
                                     <i class="fas fa-exchange-alt mr-2"></i>Espace Étudiant
                                 </a>
-                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                <a href="../logout.php" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
                                     <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
                                 </a>
                             </div>
@@ -119,10 +119,36 @@ $initials = strtoupper(substr($parts[0], 0, 1) . substr(end($parts), 0, 1));
             </div>
         </div>
     </nav>
+
+    <script>
+    // Toggle user dropdown
+    function toggleDropdown() {
+    const dropdown = document.getElementById('userDropdown');
+    dropdown.classList.toggle('hidden');
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('userDropdown');
+    const button = event.target.closest('button');
+    
+    if (!button || !button.onclick || button.onclick.toString().indexOf('toggleDropdown') === -1) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    }
+});
+
+
+
+
+
+
+
+</script>
 </body>
 </html>
-</body>
-</html>
+
  
 
 

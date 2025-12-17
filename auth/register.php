@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_pass = $_POST['confirm_password'] ?? '';
     $role  = $_POST['role'] ?? '';
 
-    // Validation
+    // valid
     if (empty($name) || empty($email) || empty($pass) || empty($confirm_pass) || empty($role)) {
         $error_message = "remplir tout les champ";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

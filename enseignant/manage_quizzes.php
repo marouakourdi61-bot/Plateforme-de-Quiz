@@ -17,7 +17,6 @@ include '../includes/header.php';
 
 
 <?php
-session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../auth/login.php");
     exit;
@@ -26,20 +25,21 @@ if ($_SESSION['role'] !== 'enseignant') {
     header("Location: ../auth/login.php");
     exit;
 }
+
+
+
+
+
+
+
+
+
 ?>
 
 
- <!DOCTYPE html>
- <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
- </head>
- <body>
+ 
    
-
+<div id="teacherSpace" class="pt-20"></div>
 <div id="quiz" class="section-content">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[80vh] ">
         <div class="flex justify-between items-center mb-8">
@@ -77,8 +77,7 @@ if ($_SESSION['role'] !== 'enseignant') {
             </div>
     </div>
 </div>
- </body>
- </html>
+ 
         
 
 <?php

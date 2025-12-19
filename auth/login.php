@@ -42,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+//hijacking
+session_regenerate_id(true);
 
 
 

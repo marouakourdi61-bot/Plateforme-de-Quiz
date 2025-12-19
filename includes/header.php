@@ -41,8 +41,9 @@ $initials = strtoupper(substr($parts[0], 0, 1) . substr(end($parts), 0, 1));
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Espace Enseignant</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     
@@ -106,7 +107,7 @@ $initials = strtoupper(substr($parts[0], 0, 1) . substr(end($parts), 0, 1));
                                     <i class="fas fa-cog mr-2"></i>Paramètres
                                 </a>
                                 <hr class="my-1">
-                                <a href="#student" onclick="switchToStudent()" class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">
+                                <a href="../étudiant/dashboard.php" onclick="switchToStudent()" class="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100">
                                     <i class="fas fa-exchange-alt mr-2"></i>Espace Étudiant
                                 </a>
                                 <a href="../logout.php" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">

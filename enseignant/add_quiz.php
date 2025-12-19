@@ -14,52 +14,105 @@ if ($_SESSION['role'] !== 'enseignant') {
     header("Location: ../auth/login.php");
     exit;
 }
+
+
+
+
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com"></script>
-
-    <title>Document</title>
+    <title>Créer Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="text-3xl font-bold text-gray-900 mb-8">Créer un Nouveau Quiz</h2>
-    <div class="bg-white rounded-xl shadow-md p-8">
-        <form action="save_quiz.php" method="POST">
-            <div class="space-y-6">
-                <div>
-                    <label for="title" class="block text-sm font-medium text-gray-700">Titre du Quiz</label>
-                    <input type="text" name="title" id="title" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700">Catégorie</label>
-                    <select name="category" id="category" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="">Sélectionnez une catégorie</option>
-                        <option value="1">HTML/CSS</option>
-                        <option value="2">JavaScript</option>
-                        </select>
-                </div>
-                <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea name="description" id="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-3 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-                </div>
+<body class="bg-gray-100">
+
+<div class="max-w-5xl mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold mb-6">Créer un Nouveau Quiz</h2>
+
+    <form action="save_quiz.php" method="POST" class="bg-white p-8 rounded-xl shadow space-y-8">
+
+        <!-- Quiz info -->
+        <div>
+            <label class="block text-sm font-medium">Titre du Quiz *</label>
+            <input type="text" name="title" required class="w-full mt-1 p-3 border rounded-md">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium">Catégorie *</label>
+            <select name="category" required class="w-full mt-1 p-3 border rounded-md">
+                <option value="">Sélectionnez</option>
+                <option value="1">HTML / CSS</option>
+                <option value="2">JavaScript</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium">Description</label>
+            <textarea name="description" rows="3" class="w-full mt-1 p-3 border rounded-md"></textarea>
+        </div>
+
+        <!-- Questions header -->
+        <div class="flex justify-between items-center">
+            <h3 class="text-xl font-bold">Questions</h3>
+
+            
+            <button type="button"
+                class="bg-green-600 text-white px-4 py-2 rounded-lg cursor-not-allowed opacity-80">
+                + Ajouter une question
+            </button>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="border rounded-lg p-6 bg-gray-50 space-y-4">
+            <h4 class="font-semibold">Question 1</h4>
+
+            <input type="text" name="questions[0][question]" required
+                   placeholder="Posez votre question..."
+                   class="w-full p-3 border rounded-md">
+
+            <div class="grid grid-cols-2 gap-4">
+                <input type="text" name="questions[0][options][]" required placeholder="Option 1"
+                       class="p-3 border rounded-md">
+                <input type="text" name="questions[0][options][]" required placeholder="Option 2"
+                       class="p-3 border rounded-md">
+                <input type="text" name="questions[0][options][]" required placeholder="Option 3"
+                       class="p-3 border rounded-md">
+                <input type="text" name="questions[0][options][]" required placeholder="Option 4"
+                       class="p-3 border rounded-md">
             </div>
-            <div class="mt-8">
-                <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition">
-                    Enregistrer le Quiz et Ajouter des Questions
-                </button>
-                <a href="manage_quizzes.php" class="mt-3 block text-center text-sm text-gray-600 hover:text-indigo-600">Annuler</a>
-            </div>
-        </form>
-    </div>
+
+            <select name="questions[0][correct]" required
+                    class="w-full p-3 border rounded-md">
+                <option value="">Sélectionner la bonne réponse</option>
+                <option value="0">Option 1</option>
+                <option value="1">Option 2</option>
+                <option value="2">Option 3</option>
+                <option value="3">Option 4</option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-4">
+            <a href="manage_quizzes.php"
+               class="w-1/2 text-center border py-3 rounded-lg">
+                Annuler
+            </a>
+            <button type="submit"
+                    class="w-1/2 bg-indigo-600 text-white py-3 rounded-lg">
+                Créer le Quiz
+            </button>
+        </div>
+
+    </form>
 </div>
+
 </body>
 </html>
+
+
 
 
 <?php

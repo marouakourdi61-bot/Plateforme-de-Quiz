@@ -6,6 +6,15 @@ CREATE TABLE users (
     role ENUM('enseignant', 'etudiant') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+--@block
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 --@block
 CREATE TABLE quizzes (
     id INT AUTO_INCREMENT PRIMARY KEY,

@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="absolute inset-0 bg-black opacity-50"></div>
 
-    <form method="POST" class="relative z-10 text-white text-center flex flex-col gap-4 border-2 rounded-xl px-8 w-full max-w-md py-10 bg-black bg-opacity-30 backdrop-blur-sm">
+    <form method="POST"  class="relative z-10 text-white text-center flex flex-col gap-4 border-2 rounded-xl px-8 w-full max-w-md py-10 bg-black bg-opacity-30 backdrop-blur-sm">
 
         <h1 class="text-3xl uppercase font-extrabold mb-4 text-green-400">Inscription</h1>
 

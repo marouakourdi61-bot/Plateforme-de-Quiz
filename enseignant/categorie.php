@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 if ($_SESSION['role'] !== 'enseignant') {
     header("Location: ../auth/login.php");
+    
     exit;
 }
 

@@ -162,7 +162,7 @@ include '../includes/header.php';
                             </div>
                         </div>
                         <div class="flex items-center justify-between text-sm">
-                            <span class="text-gray-500"><i class="fas fa-clipboard-list mr-2"></i>12 quiz</span>
+                            <span class="text-gray-500"><i class="fas fa-clipboard-list mr-2"> </i>12 quiz</span>
                             <span class="text-gray-500"><i class="fas fa-user-friends mr-2"></i>45 étudiants</span>
                         </div>
                     </div>

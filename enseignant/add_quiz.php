@@ -18,6 +18,66 @@ if ($_SESSION['role'] !== 'enseignant') {
 
 
 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Quiz 
+    $title = trim($_POST['title']);
+    $description = trim($_POST['description']);
+    $category = $_POST['category']; 
+    $teacher_id = $_SESSION['user_id'];
+
+    //  quiz
+    $stmt = $pdo->prepare("
+        INSERT INTO quizzes (title, description, teacher_id, category)
+        VALUES (?, ?, ?, ?)
+    ");
+    $stmt->execute([$title, $description, $teacher_id, $category]);
+
+   
+    
+    $quiz_id = $pdo->lastInsertId();
+
+    // Question 
+    $q = $_POST['questions'][0];
+
+    $question_text = $q['question'];
+    $option_a = $q['options'][0];
+    $option_b = $q['options'][1];
+    $option_c = $q['options'][2];
+    $option_d = $q['options'][3];
+
+    // option vrai
+    $letters = ['A', 'B', 'C', 'D'];
+    $correct_option = $letters[$q['correct']];
+
+    //  question
+    $stmtQ = $pdo->prepare("
+        INSERT INTO questions 
+        (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_option)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    ");
+
+    $stmtQ->execute([
+        $quiz_id,
+        $question_text,
+        $option_a,
+        $option_b,
+        $option_c,
+        $option_d,
+        $correct_option
+    ]);
+
+    
+    header("Location: manage_quizzes.php?success=1");
+    exit;
+}
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +92,7 @@ if ($_SESSION['role'] !== 'enseignant') {
 <div class="max-w-5xl mx-auto px-4 py-10">
     <h2 class="text-3xl font-bold mb-6">Créer un Nouveau Quiz</h2>
 
-    <form action="save_quiz.php" method="POST" class="bg-white p-8 rounded-xl shadow space-y-8">
+    <form action="add_quiz.php" method="POST" class="bg-white p-8 rounded-xl shadow space-y-8">
 
         <!-- Quiz info -->
         <div>
